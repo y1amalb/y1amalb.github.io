@@ -12,6 +12,8 @@ const bdays = [
   {name: "Shira Shomer", date: "28.12"}
 ];
 
+// Test Change for git
+
 const ringingHours = [
   ["7:45", "8:25"],
   ["8:25", "9:15"],
