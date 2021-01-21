@@ -8,11 +8,40 @@ const tests = {
 };
 
 const bdays = [
+  {name: "Elad Hilel", date: "03.02"},
+  {name: "Nikol Lokianetz", date: "03.02"},
+  {name: "Itay Ozer", date: "05.02"},
+  {name: "Eden Kiknadza", date: "07.02"},
+  {name: "Andrea Nahom", date: "16.02"},
+  {name: "Maxim Lichatzov", date: "15.02"},
+  {name: "Anastasya Dobgay", date: "01.03"},
+  {name: "Alona Levin", date: "31.3"},
+  {name: "Jorden Hakim", date: "04.04"},
+  {name: "Shira Nabay", date: "07.04"},
+  {name: "Linoy Riech", date: "13.04"},
+  {name: "Noa Cohen", date: "03.06"},
+  {name: "Omer Levi", date: "08.06"},
+  {name: "Jasmin Yakovovich", date: "12.06"},
+  {name: "Ido Mazor", date: "04.07"},
+  {name: "Roni Nudelman", date: "12.07"},
+  {name: "Hili Shahamon", date: "09.08"},
+  {name: "Linoy Levi", date: "10.08"},
+  {name: "Liron Vinter", date: "12.08"},
+  {name: "Gal Heler", date: "16.08"},
+  {name: "Jonatan Kliminski", date: "05.09"},
+  {name: "Negev Bosmat", date: "07.09"},
+  {name: "Orian Papanov", date: "19.09"},
+  {name: "Mishel Minin", date: "20.09"},
+  {name: "Shaked Kitri", date: "03.10"},
+  {name: "Assaf Nisnevich", date: "04.10"},
+  {name: "Sean Panigel", date: "13.10"},
+  {name: "Lior Yadumi", date: "19.10"},
+  {name: "Noam Zarbiv", date: "09.12"},
+  {name: "Elina Kavetzman", date: ""},
+  {name: "Lior Galgor", date: "18.12"},
   {name: "Shaked Zilberman", date: "20.12"},
   {name: "Shira Shomer", date: "28.12"}
 ];
-
-// Test Change for git
 
 const ringingHours = [
   ["7:45", "8:25"],
