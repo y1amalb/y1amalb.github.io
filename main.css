@@ -175,3 +175,18 @@ body {
 .hidden {
   display: none;
 }
+
+.sentences-link {
+  position: relative;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  font-size: 40px;
+  color: var(--white);
+  background-color: var(--darkGrey);
+  padding: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}

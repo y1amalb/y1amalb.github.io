@@ -78,4 +78,12 @@
   .bday-list > li {
     font-size: 15px;
   }
+
+  .CTitle {
+  	font-size: 14px;
+  }
+
+  .sentences-link {
+    font-size: 30px;
+  }
 }
