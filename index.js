@@ -239,7 +239,7 @@ function prebold(htmlObject) {
   if (htmlObject) {
     htmlObject.style.backgroundColor = 'var(--red)';
   } else {
-    prebold(getHourHTML(getToday() + 1, findNextHour()));
+    prebold(getHourHTML((getToday() + 1) % 7, findNextHour()));
   }
 }
 
