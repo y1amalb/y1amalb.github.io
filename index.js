@@ -188,8 +188,8 @@ function allBdays() {
 
 function schedule() {
   enlight(getDayHTML(getToday()));
-  embold(getHourHTML(getToday(), findCurrentHour()));
   prebold(getHourHTML(getToday(), findNextHour()));
+  embold(getHourHTML(getToday(), findCurrentHour()));
 }
 
 // int hour = [0/1...10]
@@ -257,12 +257,19 @@ function findCurrentHour() {
 }
 
 function findNextHour() {
+  let current = findCurrentHour();
+  if (current > -1) {
+    if (current + 1 > 10) {
+      return 0;
+    } else {
+      return current + 1;
+    }
+  }
   let now = new Date();
   let time = now.getHours() + ":" + now.getMinutes();
   for (let i = 0; i < ringingHours.length - 1; i++) {
     let e = ringingHours[i][1];
     if (stringTimeCompare(time, e)) {
-      console.log(stringTimeCompare(time, e));
       return i;
     }
   }
