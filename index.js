@@ -239,7 +239,7 @@ function prebold(htmlObject) {
   if (htmlObject) {
     htmlObject.style.backgroundColor = 'var(--red)';
   } else {
-    prebold(getHourHTML((getToday() + 1) % 7, findNextHour()));
+    // prebold(getHourHTML((getToday() + 1) % 7, findNextHour()));
   }
 }
 
@@ -259,29 +259,33 @@ function findCurrentHour() {
 function findNextHour() {
   let current = findCurrentHour();
   if (current > -1) {
-    if (current + 1 > 10) {
+    if (++current > 10) {
       return 0;
     } else {
-      return current + 1;
+      return current;
     }
   }
   let now = new Date();
   let time = now.getHours() + ":" + now.getMinutes();
   for (let i = 0; i < ringingHours.length - 1; i++) {
     let e = ringingHours[i][1];
-    if (stringTimeCompare(time, e)) {
-      return i;
+    console.log(e);
+    if (stringTimeCompare(e, time)) {
+      return i + 1;
     }
   }
   return -1;
 }
 
-// Is t1 later than t2?
+// THIS DOES NOT ACCOUNT FOR BETWEEN-LESSON BREAKS! it goes one lesson too far.
+// However, it does work better than last time so I'm good for today.
+
+// Is t1 earlier than t2?
 function stringTimeCompare(t1, t2) {
-  let hur1 = t1.split(":")[0];
-  let hur2 = t2.split(":")[0];
-  let min1 = t1.split(":")[1];
-  let min2 = t2.split(":")[1];
+  let hur1 = parseInt(t1.split(":")[0]);
+  let hur2 = parseInt(t2.split(":")[0]);
+  let min1 = parseInt(t1.split(":")[1]);
+  let min2 = parseInt(t2.split(":")[1]);
   if (hur1 > hur2) {
     return true;
   } else if (hur1 < hur2) {
