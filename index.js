@@ -3,8 +3,18 @@ const brightColors = ["#fff", "#000", "rgb(50, 50, 50)", "#232323", "#bcd9ea", "
 const darkColors = ["#000", "#fff", "rgb(200, 200, 200)", "#ededed", "#5ba4cf", "#79ff5d", "rgb(50, 50, 50)", "#ffed00"];
 
 const tests = {
-  "English": ["6.1.21", "7.1.21"],
-  "Math": ["1.1.21"]
+  "English": ["8.3.21", "19.4.21"],
+  "Math": ["1.2.21", "12.3.21", "23.4.21", "21.5.21"],
+  "CS": ["3.2.21", "17.2.21", "5.5.21"],
+  "Biotech": ["9.2.21", "12.2.21", "22.2.21", "29.4.21"],
+  "Bio": ["4.3.21"],
+  "GRADES": ["14.2.21", "20.6.21"],
+  "Purim": ["25.2.21"],
+  "History": ["16.3.21", "26.4.21"],
+  "Passover": ["19.3.21", "20.3.21", "21.3.21", "22.3.21", "23.3.21", "24.3.21", "25.3.21", "26.3.21", "27.3.21", "28.3.21", "29.3.21", "30.3.21", "31.3.21", "1.4.21", "2.4.21", "3.4.21", "4.4.21"],
+  "Hebrew": ["5.4.21"],
+  "Driving": ["7.4.21", "10.5.21"],
+  "Bible": ["2.5.21"]
 };
 
 const bdays = [
@@ -103,6 +113,7 @@ function startTime() {
   .replace("hh", hour)
   .replace("mm", minute)
   .replace("ss", second);
+  schedule();
   t = setTimeout(function() {
     startTime()
   }, 500);
@@ -188,8 +199,16 @@ function allBdays() {
 
 function schedule() {
   enlight(getDayHTML(getToday()));
-  prebold(getHourHTML(getToday(), findNextHour()));
-  embold(getHourHTML(getToday(), findCurrentHour()));
+  let current = getHourHTML(getToday(), findCurrentHour());
+  let next = getHourHTML(getToday(), findNextHour());
+  prebold(next);
+  embold(current);
+
+  if (current) {
+    announce("Current Hour:", current, `Started ${temporalDistance(findCurrentHour(), 0)} minutes ago!`, `Ends in ${temporalDistance(findCurrentHour(), 1)} minutes.`);
+  } else {
+    announce("Next Hour:", next, `Starts in ${temporalDistance(findNextHour(), 1)} minutes.`);
+  }
 }
 
 // int hour = [0/1...10]
@@ -296,5 +315,38 @@ function stringTimeCompare(t1, t2) {
     } else {
       return true;
     }
+  }
+}
+
+function temporalDistance(to, start) {
+  let now = new Date();
+  let minutes = now.getMinutes();
+  let hours = now.getHours();
+  let other;
+  if (start) {
+    other = ringingHours[to][0];
+  } else {
+    other = ringingHours[to][1];
+  }
+  let minDist = parseInt(other.split(':')[1]) - minutes;
+  let hourDist = parseInt(other.split(':')[0]) - hours;
+  while (minDist < 0) {
+    minDist += 60;
+    hourDist--;
+  }
+  if (hourDist < 0) {
+    hourDist = -hourDist;
+  }
+  return `${hourDist}h${minDist}m`;
+}
+
+function announce(title, value, subtext, moreSubtext) {
+  const announcment = document.getElementById('announce');
+  announcment.innerHTML = "";
+  announcment.innerHTML += title;
+  announcment.innerHTML += "<br>" + value.children[0].children[0].innerHTML;
+  announcment.innerHTML += "<br>" + subtext;
+  if (moreSubtext) {
+    announcment.innerHTML += "<br>" + moreSubtext;
   }
 }
