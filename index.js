@@ -51,6 +51,7 @@ const bdays = [
   {name: "Elina Katsevman", date: "14.12"},
   {name: "Lior Galgor", date: "18.12"},
   {name: "Shaked Zilberman", date: "20.12"},
+  {name: "Tal Ben Ami", date: "20.12"},
   {name: "Shira Shomer", date: "28.12"}
 ];
 
