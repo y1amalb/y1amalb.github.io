@@ -18,6 +18,7 @@ const tests = {
 };
 
 const bdays = [
+  {name: "Reem Shalom", date: "02.02"},
   {name: "Elad Hilel", date: "03.02"},
   {name: "Nikol Lokianetz", date: "03.02"},
   {name: "Itay Ozer", date: "05.02"},
@@ -50,6 +51,7 @@ const bdays = [
   {name: "Elina Katsevman", date: "14.12"},
   {name: "Lior Galgor", date: "18.12"},
   {name: "Shaked Zilberman", date: "20.12"},
+  {name: "Tal Ben Ami", date: "20.12"},
   {name: "Shira Shomer", date: "28.12"}
 ];
 
