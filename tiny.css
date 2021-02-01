@@ -37,12 +37,24 @@
   .bdays {
     position: absolute;
     top: 300px;
-    height: 423px;
+    height: 273px;
     left: 20px;
     width: 200px;
     background-color: var(--bday-bg);
     border: var(--grey) 3px solid;
     border-radius: 30px;
+  }
+
+  .announce {
+    position: absolute;
+    top: 73%;
+    height: 123px;
+    left: 20px;
+    width: 250px;
+    background-color: var(--red);
+    border: var(--grey) 3px solid;
+    border-radius: 30px;
+    z-index: -1;
   }
 
   .contact {

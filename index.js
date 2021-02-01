@@ -103,6 +103,7 @@ function startTime() {
   .replace("hh", hour)
   .replace("mm", minute)
   .replace("ss", second);
+  schedule();
   t = setTimeout(function() {
     startTime()
   }, 500);
@@ -188,8 +189,16 @@ function allBdays() {
 
 function schedule() {
   enlight(getDayHTML(getToday()));
-  prebold(getHourHTML(getToday(), findNextHour()));
-  embold(getHourHTML(getToday(), findCurrentHour()));
+  let current = getHourHTML(getToday(), findCurrentHour());
+  let next = getHourHTML(getToday(), findNextHour());
+  prebold(next);
+  embold(current);
+
+  if (current) {
+    announce("Current Hour:", current, `Started ${temporalDistance(findCurrentHour(), 0)} minutes ago!`, `Ends in ${temporalDistance(findCurrentHour(), 1)} minutes.`);
+  } else {
+    announce("Next Hour:", next, `Starts in ${temporalDistance(findNextHour(), 1)} minutes.`);
+  }
 }
 
 // int hour = [0/1...10]
@@ -296,5 +305,38 @@ function stringTimeCompare(t1, t2) {
     } else {
       return true;
     }
+  }
+}
+
+function temporalDistance(to, start) {
+  let now = new Date();
+  let minutes = now.getMinutes();
+  let hours = now.getHours();
+  let other;
+  if (start) {
+    other = ringingHours[to][0];
+  } else {
+    other = ringingHours[to][1];
+  }
+  let minDist = parseInt(other.split(':')[1]) - minutes;
+  let hourDist = parseInt(other.split(':')[0]) - hours;
+  while (minDist < 0) {
+    minDist += 60;
+    hourDist--;
+  }
+  if (hourDist < 0) {
+    hourDist = -hourDist;
+  }
+  return `${hourDist}h${minDist}m`;
+}
+
+function announce(title, value, subtext, moreSubtext) {
+  const announcment = document.getElementById('announce');
+  announcment.innerHTML = "";
+  announcment.innerHTML += title;
+  announcment.innerHTML += "<br>" + value.children[0].children[0].innerHTML;
+  announcment.innerHTML += "<br>" + subtext;
+  if (moreSubtext) {
+    announcment.innerHTML += "<br>" + moreSubtext;
   }
 }
