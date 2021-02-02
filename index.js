@@ -207,10 +207,11 @@ function schedule() {
   embold(current);
 
   if (current) {
-    announce("Current Hour:", current, `Started ${temporalDistance(findCurrentHour(), 0)} minutes ago!`, `Ends in ${temporalDistance(findCurrentHour(), 1)} minutes.`);
+    announce("Current Hour:", current, `Ends in ${temporalDistance(findCurrentHour(), 1)} minutes.`, `Started ${temporalDistance(findCurrentHour(), 0, 0)} minutes ago!`);
   } else {
-    announce("Next Hour:", next, `Starts in ${temporalDistance(findNextHour(), 1)} minutes.`);
+    announce("Next Hour:", next, `Starts in ${temporalDistance(findNextHour(), 0)} minutes.`);
   }
+  console.log("Starts in " + temporalDistance(findNextHour(), 0));
 }
 
 // int hour = [0/1...10]
@@ -320,24 +321,25 @@ function stringTimeCompare(t1, t2) {
   }
 }
 
-function temporalDistance(to, start) {
+function temporalDistance(to, start, flip) {
   let now = new Date();
   let minutes = now.getMinutes();
   let hours = now.getHours();
-  let other;
-  if (start) {
-    other = ringingHours[to][0];
-  } else {
-    other = ringingHours[to][1];
-  }
+  let other = ringingHours[to][start];
   let minDist = parseInt(other.split(':')[1]) - minutes;
   let hourDist = parseInt(other.split(':')[0]) - hours;
+  if (flip === 0) {
+    minDist = -minDist;
+  }
   while (minDist < 0) {
     minDist += 60;
     hourDist--;
   }
   if (hourDist < 0) {
     hourDist = -hourDist;
+  }
+  if (hourDist == 0) {
+    return `${minDist}m`;
   }
   return `${hourDist}h${minDist}m`;
 }
@@ -346,7 +348,12 @@ function announce(title, value, subtext, moreSubtext) {
   const announcment = document.getElementById('announce');
   announcment.innerHTML = "";
   announcment.innerHTML += title;
-  announcment.innerHTML += "<br>" + value.children[0].children[0].innerHTML;
+  let v = value.children[0];
+  if (v) {
+    announcment.innerHTML += "<br>" + v.children[0].innerHTML;
+  } else {
+    announcment.innerHTML += "<br>" + "Break";
+  }
   announcment.innerHTML += "<br>" + subtext;
   if (moreSubtext) {
     announcment.innerHTML += "<br>" + moreSubtext;
