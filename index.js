@@ -205,13 +205,11 @@ function schedule() {
   let next = getHourHTML(getToday(), findNextHour());
   prebold(next);
   embold(current);
-
   if (current) {
     announce("Current Hour:", current, `Ends in ${temporalDistance(findCurrentHour(), 1)} minutes.`, `Started ${temporalDistance(findCurrentHour(), 0, 0)} minutes ago!`);
   } else {
     announce("Next Hour:", next, `Starts in ${temporalDistance(findNextHour(), 0)} minutes.`);
   }
-  console.log("Starts in " + temporalDistance(findNextHour(), 0));
 }
 
 // int hour = [0/1...10]
@@ -291,7 +289,6 @@ function findNextHour() {
   let time = now.getHours() + ":" + now.getMinutes();
   for (let i = 0; i < ringingHours.length - 1; i++) {
     let e = ringingHours[i][1];
-    console.log(e);
     if (stringTimeCompare(e, time)) {
       return i + 1;
     }
@@ -325,7 +322,9 @@ function temporalDistance(to, start, flip) {
   let now = new Date();
   let minutes = now.getMinutes();
   let hours = now.getHours();
-  let other = ringingHours[to][start];
+  let other = ringingHours[to];
+  if (other == undefined) return;
+  other = other[start];
   let minDist = parseInt(other.split(':')[1]) - minutes;
   let hourDist = parseInt(other.split(':')[0]) - hours;
   if (flip === 0) {
@@ -348,14 +347,16 @@ function announce(title, value, subtext, moreSubtext) {
   const announcment = document.getElementById('announce');
   announcment.innerHTML = "";
   announcment.innerHTML += title;
-  let v = value.children[0];
-  if (v) {
-    announcment.innerHTML += "<br>" + v.children[0].innerHTML;
-  } else {
-    announcment.innerHTML += "<br>" + "Break";
-  }
-  announcment.innerHTML += "<br>" + subtext;
-  if (moreSubtext) {
-    announcment.innerHTML += "<br>" + moreSubtext;
+  if (value) {
+    let v = value.children[0];
+    if (v) {
+      announcment.innerHTML += "<br>" + v.children[0].innerHTML;
+    } else {
+      announcment.innerHTML += "<br>" + "Break";
+    }
+    announcment.innerHTML += "<br>" + subtext;
+    if (moreSubtext) {
+      announcment.innerHTML += "<br>" + moreSubtext;
+    }
   }
 }
